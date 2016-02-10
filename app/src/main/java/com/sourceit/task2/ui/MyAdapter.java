@@ -10,13 +10,13 @@ import android.widget.TextView;
 import com.sourceit.task2.R;
 import com.sourceit.task2.model.Product;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by User on 08.02.2016.
  */
 public class MyAdapter extends ArrayAdapter<Product> {
-    public MyAdapter(Context context, ArrayList<Product> objects) {
+    public MyAdapter(Context context, LinkedList<Product> objects) {
         super(context, R.layout.product_case, objects);
     }
 
