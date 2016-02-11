@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         ListView products_list = (ListView) findViewById(R.id.products_list);
         myAdapter = new MyAdapter(this, products);
         products_list.setAdapter(myAdapter);
-        myAdapter.notifyDataSetChanged();
 
         repeatBuys();
     }
