@@ -3,7 +3,8 @@ package com.sourceit.task2.ui;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ListView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.sourceit.task2.R;
 import com.sourceit.task2.model.Product;
@@ -14,7 +15,6 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MyAdapter myAdapter;
     private Random random = new Random();
 
     private final int NUMBER_OF_GOODS = 50;
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private int[] numbersBuyProducts = new int[COUNT_BUYS];
     private int[] numberOfPurchasedGoods = new int[COUNT_BUYS];
 
+    private RecyclerView products_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +43,13 @@ public class MainActivity extends AppCompatActivity {
             positions.add(i);
         }
 
-        ListView products_list = (ListView) findViewById(R.id.products_list);
-        myAdapter = new MyAdapter(this, products);
-        products_list.setAdapter(myAdapter);
-        myAdapter.notifyDataSetChanged();
+        products_list = (RecyclerView) findViewById(R.id.products_list);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        products_list.setLayoutManager(layoutManager);
+        products_list.setAdapter(new RecyclerViewAdapter(products));
 
         repeatBuys();
     }
-
 
     private class MyAsyncTask extends AsyncTask<Void, Void, Void> {
 
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void repeatBuys() {
         L.d("repeatBuys");
-        myAdapter.notifyDataSetChanged();
+        products_list.getAdapter().notifyDataSetChanged();
         if (!products.isEmpty()) {
             new MyAsyncTask().execute();
         }
